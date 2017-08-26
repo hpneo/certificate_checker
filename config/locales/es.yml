@@ -1,0 +1,17 @@
+es:
+  activerecord:
+    models:
+      certificate: Certificado
+    attributes:
+      certificate:
+        code: 'Código'
+        business_name: 'Razón social'
+        ruc: 'RUC'
+        address: 'Dirección'
+        machine_type: 'Máquina'
+        machine_brand: 'Marca'
+        machine_model: 'Modelo'
+        machine_code: 'Serie'
+        issued_at: 'Fecha de expedición'
+        valid_until: 'Vigencia'
+        reference_code: 'Referencia'
