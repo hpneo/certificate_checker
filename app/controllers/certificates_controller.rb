@@ -1,6 +1,6 @@
 class CertificatesController < ApplicationController
   def check
-    certificate = Certificate.where(code: params[:id]).first
+    certificate = Certificate.where(code: params[:code]).first
 
     if certificate
       if certificate.valid_until > Date.today
