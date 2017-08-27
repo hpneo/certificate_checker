@@ -29,7 +29,7 @@ ActiveAdmin.register Certificate do
     end
     column :code
     column :business_name
-    column :ruc
+    # column :ruc
     column :address
     column :machine_type
     column :machine_brand
