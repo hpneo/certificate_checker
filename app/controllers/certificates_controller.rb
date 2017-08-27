@@ -1,4 +1,6 @@
 class CertificatesController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def check
     certificate = Certificate.where(code: params[:code]).first
 
