@@ -24,7 +24,7 @@ ActiveAdmin.register Certificate do
     selectable_column
     column "Código QR" do |certificate|
       barcode = Barby::QrCode.new(certificate.attributes.to_json)
-      image = barcode.to_image(xdim: 6, margin: 5).to_data_url
+      image = barcode.to_image(xdim: 2, margin: 5).to_data_url
       image_tag(image, width: 150)
     end
     column :code
