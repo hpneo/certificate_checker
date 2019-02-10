@@ -41,4 +41,6 @@ ActiveAdmin.register Certificate do
     actions
   end
 
+  form partial: 'form'
+
 end

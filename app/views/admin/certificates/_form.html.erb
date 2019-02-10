@@ -1,0 +1,69 @@
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+<%= semantic_form_for [:admin, resource], builder: ActiveAdmin::FormBuilder do |f| %>
+  <%= f.inputs "Detalles" do %>
+    <%= f.input :code %>
+    <%= f.input :business_name, as: :select, collection: Certificate.pluck(:business_name).uniq %>
+    <%= f.input :ruc, as: :select, collection: Certificate.pluck(:ruc).uniq %>
+    <%= f.input :address %>
+    <%= f.input :machine_type %>
+    <%= f.input :machine_brand %>
+    <%= f.input :machine_model %>
+    <%= f.input :machine_code %>
+    <%= f.input :reference_code %>
+    <%= f.input :issued_at %>
+    <%= f.input :valid_until %>
+  <% end %>
+  <%= f.actions %>
+<% end %>
+
+<script>
+  $(document).ready(function() {
+    var businessName = $('#certificate_business_name').select2({
+      tags: true
+    });
+
+    var ruc = $('#certificate_ruc').select2({
+      tags: true
+    });
+
+    var address = $('#certificate_address');
+
+    businessName.on('select2:select', function(event) {
+      var selectedValue = event.params.data.id;
+      var query = {
+        utf8: '✓',
+        q: {
+          business_name_equals: selectedValue,
+        },
+        order: 'id_desc',
+      }
+      $.get('/admin/certificates.json', query).then(function(data) {
+        var result = data[0];
+
+        console.log(result);
+
+        ruc.val(result.ruc).trigger('change');
+        address.val(result.address);
+      });
+    });
+
+    ruc.on('select2:select', function(event) {
+      var selectedValue = event.params.data.id;
+      var query = {
+        utf8: '✓',
+        q: {
+          ruc_equals: selectedValue,
+        },
+        order: 'id_desc',
+      }
+      $.get('/admin/certificates.json', query).then(function(data) {
+        var result = data[0];
+
+        businessName.val(result.business_name).trigger('change');
+        address.val(result.address);
+      });
+    });
+  });
+</script>
